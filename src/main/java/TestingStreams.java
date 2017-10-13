@@ -6,6 +6,7 @@ import java.util.OptionalDouble;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import static java.time.temporal.ChronoUnit.DAYS;
 import static java.time.temporal.ChronoUnit.YEARS;
 
 public class TestingStreams {
@@ -24,13 +25,29 @@ public class TestingStreams {
                     nameOfPackage + "book-authors.txt", authors);
 
             OptionalDouble averageAge = authors.stream()
-                    .mapToLong(x -> YEARS.between(x.getDayOfBirthday(), currentDay))
+                    .mapToLong(x -> {
+                        if (x.getDayOfDeath().isPresent()) {
+                            return YEARS.between(x.getDayOfBirthday(), x.getDayOfDeath().get());
+                        } else {
+                            return YEARS.between(x.getDayOfBirthday(), currentDay);
+                        }
+                    })
                     .average();
 
             System.out.println("Average age of authors: " + averageAge.orElse(0) + "\n");
 
             List<Author> sortedListOfAuthors = authors.stream()
-                    .sorted((x, y) -> (int) YEARS.between(y.getDayOfBirthday(), x.getDayOfBirthday()))
+                    .sorted((x, y) -> {
+                        Long ageX = (x.getDayOfDeath().isPresent())
+                                ? (DAYS.between(x.getDayOfBirthday(), x.getDayOfDeath().get()))
+                                : DAYS.between(x.getDayOfBirthday(), currentDay);
+
+                        Long ageY = (y.getDayOfDeath().isPresent())
+                                ? (DAYS.between(y.getDayOfBirthday(), y.getDayOfDeath().get()))
+                                : DAYS.between(y.getDayOfBirthday(), currentDay);
+
+                        return (int) (ageX - ageY);
+                    })
                     .collect(Collectors.toList());
 
             System.out.println("Sorted list of authors orders by age:");
