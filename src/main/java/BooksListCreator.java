@@ -11,7 +11,12 @@ import java.util.stream.Collectors;
 
 public class BooksListCreator {
 
-    public static List<Book> getListOfBooks(String fileNameWithBook, String fileNameBookAuthors, List<Author> createdAuthors) throws FileNotFoundException {
+    public static List<Book> getListOfBooks(List<Author> createdAuthors) throws FileNotFoundException {
+
+        String baseDirectory = AuthorsListCreator.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        String fileNameWithBook = baseDirectory + "/" + "books.txt";
+        String fileNameBookAuthors = baseDirectory + "/" + "book-authors.txt";
+
         List<PairBookAuthor> pairBookAuthorList = new ArrayList<>();
         List<Book> books = new ArrayList<>();
 
@@ -45,11 +50,11 @@ public class BooksListCreator {
 
 
                 books.add(new Book(title, dayOfPublication, authorsObjectForCurrentBook));
-                currentLineInFile++;
+
             } catch (DateTimeParseException e) {
                 System.out.println(e + ". Error in file " + fileNameWithBook + ". Line: " + currentLineInFile);
-                currentLineInFile++;
             }
+            currentLineInFile++;
         }
 
         return books;

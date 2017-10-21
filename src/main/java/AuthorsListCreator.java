@@ -9,8 +9,14 @@ import java.util.Scanner;
 
 public class AuthorsListCreator {
 
-    static List<Author> getListWithAuthors(String fileNameWithAuthors) throws FileNotFoundException {
-        Scanner scannerOfAuthors = new Scanner(new File(fileNameWithAuthors));
+    static private String fileName = "authors.txt";
+
+    static List<Author> getListWithAuthors() throws FileNotFoundException {
+
+        String fullName = AuthorsListCreator.class.getProtectionDomain().getCodeSource().getLocation().getPath()
+                + fileName;
+
+        Scanner scannerOfAuthors = new Scanner(new File(fullName));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
         List<Author> listOfAuthors = new ArrayList<>();
@@ -34,30 +40,17 @@ public class AuthorsListCreator {
 
                 Author.Sex sex;
 
-                if (sexInFile.equals("male")) sex = Author.Sex.male;
-                else if (sexInFile.equals("female")) sex = Author.Sex.female;
-                else throw new WrongSexInFile();
+                sex = Author.Sex.valueOf(sexInFile.toUpperCase());
 
                 listOfAuthors.add(new Author(name, dayOfBirthday, dayOfDeath, sex));
 
-                currentLineInFile++;
-            } catch (WrongSexInFile e) {
-                System.out.println(e + fileNameWithAuthors + ". Line: " + currentLineInFile);
-                currentLineInFile++;
             } catch (DateTimeParseException e) {
-                System.out.println(e + ". Error in file " + fileNameWithAuthors + ". Line: " + currentLineInFile);
-                currentLineInFile++;
+                System.out.println(e + ". Error in file " + fullName + ". Line: " + currentLineInFile);
             }
+            currentLineInFile++;
         }
 
         return listOfAuthors;
-    }
-
-    public static class WrongSexInFile extends Exception {
-        @Override
-        public String toString() {
-            return "Wrong name of sex in file ";
-        }
     }
 
 }

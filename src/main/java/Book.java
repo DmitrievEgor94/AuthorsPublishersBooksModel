@@ -17,13 +17,7 @@ public class Book {
 
     @Override
     public String toString() {
-        String outString = title + "\n  PublicationDate:" + publicationDate + "\n  Authors:";
-
-        for (Author author : authors) {
-            outString += "\n   " + author.getName();
-        }
-
-        return outString + "\n";
+        return title;
     }
 
     public String getTitle() {

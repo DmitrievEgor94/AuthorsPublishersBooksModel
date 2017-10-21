@@ -8,7 +8,7 @@ public class Author {
     private LocalDate dayOfDeath;
     private Sex sex;
 
-    enum Sex {male, female}
+    enum Sex {MALE, FEMALE}
 
     public Author(String name, LocalDate dayOfBirthday, LocalDate dayOfDeath, Sex sex) {
         this.name = name;
@@ -27,7 +27,7 @@ public class Author {
 
     @Override
     public String toString() {
-        return name + "\n  Birthday day: " + dayOfBirthday + "\n  Death day: " + dayOfDeath + "\n  Sex: " + sex + "\n";
+        return name;
     }
 
     public Sex getSex() {
