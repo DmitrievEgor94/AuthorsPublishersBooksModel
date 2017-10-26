@@ -80,13 +80,7 @@ public class AuthorEntity implements Serializable {
         if (!this.dayOfBirthday.equals(entity.dayOfBirthday)) {
             return false;
         }
-        if (!this.dayOfDeath.equals(entity.dayOfDeath)) {
-            return false;
-        }
-        if (!this.sex.equals(entity.sex)) {
-            return false;
-        }
 
-        return true;
+        return this.dayOfDeath.equals(entity.dayOfDeath) && this.sex.equals(entity.sex);
     }
 }

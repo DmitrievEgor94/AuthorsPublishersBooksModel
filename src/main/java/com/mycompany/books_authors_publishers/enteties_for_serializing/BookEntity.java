@@ -67,14 +67,7 @@ public class BookEntity implements Serializable {
             return false;
         }
 
-        if (!this.publicationDate.equals(entity.publicationDate)) {
-            return false;
-        }
+        return this.publicationDate.equals(entity.publicationDate) && this.authorsId.equals(entity.authorsId);
 
-        if (!this.authorsId.equals(entity.authorsId)) {
-            return false;
-        }
-
-        return true;
     }
 }

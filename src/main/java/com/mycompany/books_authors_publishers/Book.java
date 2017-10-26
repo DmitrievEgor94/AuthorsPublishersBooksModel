@@ -43,10 +43,7 @@ public class Book {
 
         if (!this.title.equals(book.title)) return false;
 
-        if (!this.publicationDate.equals(publicationDate)) return false;
+        return this.publicationDate.equals(book.publicationDate) && this.authors.equals(book.authors);
 
-        if (!this.authors.equals(book.authors)) return false;
-
-        return true;
     }
 }

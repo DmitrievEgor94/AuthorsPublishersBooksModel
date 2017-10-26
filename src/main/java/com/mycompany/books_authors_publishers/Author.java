@@ -66,10 +66,6 @@ public class Author {
             }
         }
 
-        if (!this.sex.equals(author.sex)) {
-            return false;
-        }
-
-        return true;
+        return this.sex.equals(author.sex);
     }
 }
