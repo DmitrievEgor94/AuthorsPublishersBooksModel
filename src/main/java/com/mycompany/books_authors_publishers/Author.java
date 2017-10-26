@@ -1,4 +1,4 @@
-package com.mycompany.books_and_authors;
+package com.mycompany.books_authors_publishers;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -38,5 +38,38 @@ public class Author {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+
+        if (obj.getClass() != this.getClass()) return false;
+
+        Author author = (Author) obj;
+
+        if (!this.name.equals(author.name)) {
+            return false;
+        }
+
+        if (!this.dayOfBirthday.equals(author.dayOfBirthday)) {
+            return false;
+        }
+
+        if (this.dayOfDeath == null) {
+            if (author.dayOfDeath != null) {
+                return false;
+            }
+        } else {
+            if (!this.dayOfDeath.equals(author.dayOfDeath)) {
+                return false;
+            }
+        }
+
+        if (!this.sex.equals(author.sex)) {
+            return false;
+        }
+
+        return true;
     }
 }

@@ -1,4 +1,4 @@
-package com.mycompany.books_and_authors;
+package com.mycompany.books_authors_publishers;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -31,5 +31,22 @@ public class Book {
 
     public List<Author> getAuthors() {
         return Collections.unmodifiableList(authors);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+
+        if (this.getClass() != obj.getClass()) return false;
+
+        Book book = (Book) obj;
+
+        if (!this.title.equals(book.title)) return false;
+
+        if (!this.publicationDate.equals(publicationDate)) return false;
+
+        if (!this.authors.equals(book.authors)) return false;
+
+        return true;
     }
 }

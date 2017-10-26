@@ -1,9 +1,9 @@
 package com.mycompany;
 
-import com.mycompany.books_and_authors.Author;
-import com.mycompany.books_and_authors.AuthorsListCreator;
-import com.mycompany.books_and_authors.Book;
-import com.mycompany.books_and_authors.BooksListCreator;
+import com.mycompany.books_authors_publishers.Author;
+import com.mycompany.books_authors_publishers.AuthorsListCreator;
+import com.mycompany.books_authors_publishers.Book;
+import com.mycompany.books_authors_publishers.BooksListCreator;
 
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
@@ -24,7 +24,7 @@ public class TestingStreams {
 
         try {
             authors = AuthorsListCreator.getListWithAuthors();
-            books = BooksListCreator.getListOfBooks(authors);
+            books = BooksListCreator.getListWithBooks(authors);
         } catch (FileNotFoundException e) {
             System.out.println(e);
             return;
